@@ -71,11 +71,13 @@ const Page = () => {
     };
 
     return (
-        <motion.div className='container-xxl d-flex flex-row container-width gap-3'>
+        <motion.div className='container-xxl d-flex flex-row container-width gap-3 animation-0'>
             <div className="background progress-bar-animated height-50">
                 <div className="text d-flex justify-content-center content-center-s pt-5 mb-3">
                     <Image src={arabteclogo.src} alt="Arabtec Logo" className="ms-3" width={91.504} height={56.964} />
+                    <Link href={"/"}>
                     <p className="text-white ms-2 mt-3">arabtec</p>
+                    </Link>
                 </div>
                 <div className='act mb-2 d-flex content-center-s'>
                     <div className='menu d-flex margin55 mb-2 content-center-s align-items-center'>

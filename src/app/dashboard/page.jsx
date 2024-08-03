@@ -72,11 +72,12 @@ const Page = () => {
 
     return (
         <motion.div className='container-xxl d-flex flex-row container-width gap-3'>
-            <div className="background progress-bar-animated height-50">
+            <div className="background progress-bar-animated animation-0 height-50">
                 <div className="text d-flex justify-content-center content-center-s pt-5 mb-3">
                     <Image src={arabteclogo.src} alt="Arabtec Logo" className="ms-3" width={91.504} height={56.964} />
-                    <p className="text-white ms-2 mt-3">arabtec</p>
-                </div>
+                    <Link href={"/"}>
+                        <p className="text-white ms-2 mt-3">arabtec</p>
+                    </Link>                </div>
                 <div className='active mb-2 d-flex content-center-s'>
                     <div className='menu d-flex margin55 mb-2 content-center-s align-items-center'>
                         <Link href="/dashboard" className='text-white text-decoration-none w-auto p gap-2 d-flex justify-content-center'>
@@ -280,7 +281,7 @@ const Page = () => {
                                                 variants={formVariants}
                                                 className="row"
                                             >
-                                           
+
                                                 <div className="col">
                                                     <label>Second Description (After The Photo)</label>
                                                     <input type="text" className="form-input wid-100" />
