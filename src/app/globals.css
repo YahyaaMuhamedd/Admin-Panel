@@ -245,11 +245,11 @@ body {
   width: auto;
   height: 52px;
   background: #CF112B;
-  animation: opacity 2.2s alternate;
+  animation: opacity 1.2s alternate;
 }
 
 .act {
-  animation: anim-wow 2.2s alternate;
+  animation: anim-wow 1.2s alternate;
 }
 
 .menu {
@@ -301,12 +301,12 @@ body {
   }
 
   .animation-1 {
-    animation: down 2.5s forwards linear;
+    animation: down 1.5s forwards ease-out;
     animation-iteration-count: 1;
   }
 
   .animation-2 {
-    animation: up 2.5s forwards linear;
+    animation: up 1.5s forwards ease-out;
     animation-iteration-count: 1;
   }
 }
@@ -344,12 +344,12 @@ body {
 
 @keyframes down {
   0% {
-    transform: translateY(-250%);
+    transform: translateY(-50%);
     opacity: 0;
   }
 
   80% {
-    transform: translateY(-60%);
+    transform: translateY(-30%);
     opacity: 0;
   }
 
@@ -360,12 +360,12 @@ body {
 
 @keyframes up {
   0% {
-    transform: translateY(250%);
+    transform: translateY(50%);
     opacity: 0;
   }
 
   80% {
-    transform: translateY(60%);
+    transform: translateY(30%);
     opacity: 0;
   }
 
