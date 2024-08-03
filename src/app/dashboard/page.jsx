@@ -75,7 +75,7 @@ const Page = () => {
             <div className="background progress-bar-animated animation-0 height-50">
                 <div className="text d-flex justify-content-center content-center-s pt-5 mb-3">
                     <Image src={arabteclogo.src} alt="Arabtec Logo" className="ms-3" width={91.504} height={56.964} />
-                    <Link href={"/"}>
+                    <Link href={"/"} className='text-decoration-none'>
                         <p className="text-white ms-2 mt-3">arabtec</p>
                     </Link>                </div>
                 <div className='active mb-2 d-flex content-center-s'>
