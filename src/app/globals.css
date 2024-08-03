@@ -74,7 +74,6 @@ body {
 }
 
 .main-dash {
-  width: 150%;
   animation-name: Anim2;
   animation-duration: 2.5s;
   animation-fill-mode: forwards;
