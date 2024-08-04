@@ -4,7 +4,7 @@ import arabteclogo from "./img/Group 6356172.svg"
 
 export default function Home() {
   return (
-      <div className="main-dash d-flex container-xxl">
+      <div className="main-dash d-flex  contain">
 
         <div className="background mt-3  me-3 d-flex justify-content-center align-items-center ">
           <div className="text d-flex  ">

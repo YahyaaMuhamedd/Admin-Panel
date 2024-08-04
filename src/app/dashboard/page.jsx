@@ -8,7 +8,7 @@ import ProjectsLogo from "../img/Group 6356191.svg";
 import Rectangle from "../img/Rectangle 1071.svg";
 import icon from "../img/Icon.svg";
 import icon1 from "../img/Icon1.svg";
-import { motion, AnimatePresence, easeInOut } from 'framer-motion';
+import { motion, AnimatePresence, easeInOut, easeOut } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 
@@ -22,6 +22,7 @@ const Page = () => {
     const [animate, setAnimate] = useState(true);
     const [showedit, setshowedit] = useState(false);
     const [showadd, setShowadd] = useState(false);
+    const [lastanim, setlastanim] = useState(false);
 
     const handleClick = () => {
         setInv(!inv);
@@ -49,11 +50,11 @@ const Page = () => {
     };
 
     const itemVariants = {
-        hidden: { opacity: 1, x: -1000 },
-        hidden2: { opacity: 1, x: 1000 },
+        hidden: { opacity: 1, x: -1200 },
+        hidden2: { opacity: 1, x: 1200 },
         visible: { opacity: 1, x: 0 },
-        exitToRight: { opacity: 1, x: 1000 },
-        exitToLeft: { opacity: 1, x: -1000 }
+        exitToRight: { opacity: 1, x: 1200 },
+        exitToLeft: { opacity: 1, x: -1200 }
     };
 
     const animateedit = {
@@ -69,15 +70,24 @@ const Page = () => {
         visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: easeInOut } },
         exit: { opacity: 0, y: 0, transition: { duration: 0.5, ease: easeInOut } }
     };
-
+    const animationend = {
+        iftrue: { opacity: 1, x: 25 , y: 25 , transition: { duration: 0.7, ease: easeInOut }},
+        iffalse: { opacity: 1, x: 0 , y: 0},
+    }
     return (
-        <motion.div className='container-xxl d-flex flex-row container-width gap-3'>
-            <div className="background progress-bar-animated animation-0 height-50">
+        <motion.div className='contain d-flex flex-row container-width gap-3 '>
+            <motion.div
+                variants={animationend}
+                initial={lastanim ? "iffalse" : "iftrue"}
+                animate={lastanim ? "iffalse" : "iftrue"}
+                transition={{duration: 0.7, delay: 0.7, ease:easeInOut}}
+                className={`background height-50 animation-0  `}>
                 <div className="text d-flex justify-content-center content-center-s pt-5 mb-3">
                     <Image src={arabteclogo.src} alt="Arabtec Logo" className="ms-3" width={91.504} height={56.964} />
                     <Link href={"/"} className='text-decoration-none'>
                         <p className="text-white ms-2 mt-3">arabtec</p>
-                    </Link>                </div>
+                    </Link>
+                </div>
                 <div className='active mb-2 d-flex content-center-s'>
                     <div className='menu d-flex margin55 mb-2 content-center-s align-items-center'>
                         <Link href="/dashboard" className='text-white text-decoration-none w-auto p gap-2 d-flex justify-content-center'>
@@ -94,7 +104,7 @@ const Page = () => {
                         </Link>
                     </div>
                 </div>
-            </div>
+            </motion.div>
 
             <motion.div className="project-control d-flex flex-column flex-lg-row">
                 <AnimatePresence mode="wait">
@@ -108,10 +118,10 @@ const Page = () => {
                             transition={{ duration: 0.7, ease: easeInOut }}
                             className="d-flex flex-column flex-lg-row gap-3 projectchild justify-content-center align-items-center ms-xxl-5 ms-lg-5"
                         >
-                            <button className={`d-flex justify-content-center align-items-center ${animate ? 'animation-1' : ''}`} onClick={() => { handleClick(); setshowedit(true); setShowadd(false); }}>
+                            <button className={`d-flex justify-content-center align-items-center ${animate ? 'animation-1' : ''}`} onClick={() => { handleClick(); setshowedit(true); setShowadd(false); setlastanim(true) }}>
                                 Edit Existing Project <Image src={icon.src} alt='Edit icon' width={53} height={53} className='ms-3' />
                             </button>
-                            <button className={`d-flex justify-content-center align-items-center ${animate ? 'animation-2' : ''}`} onClick={() => { handleClick(); setShowadd(true); setshowedit(true); }}>
+                            <button className={`d-flex justify-content-center align-items-center ${animate ? 'animation-2' : ''}`} onClick={() => { handleClick(); setShowadd(true); setshowedit(true); setlastanim(true) }}>
                                 Add New Project <Image src={icon1.src} alt='Add icon' width={53} height={53} className='ms-3' />
                             </button>
                         </motion.div>
@@ -124,13 +134,13 @@ const Page = () => {
                             animate="visible"
                             exit="exitToRight"
                             variants={itemVariants}
-                            transition={{ duration: 1, ease: easeInOut }}
+                            transition={{ duration: 1.5, ease: easeOut , type: "spring"}}
                             className={`login translateX-50 ${showadd ? '' : 'heightedit'}`}
                         >
                             <div className={`container-xxl`}>
                                 <motion.div className={`form-container`} >
                                     <div className="d-flex justify-content-between">
-                                        <button onClick={handleClick} className='btn p-0'>Back</button>
+                                        <button onClick={() =>{ handleClick();  setlastanim(false) }} className='btn p-0'>Back</button>
                                         <p>{showadd ? 'Add New Project' : 'Edit Project'}</p>
                                     </div>
 
@@ -149,12 +159,12 @@ const Page = () => {
                                                 transition={{ duration: 2.8, type: "spring" }}
                                                 className={`col`}
                                             >
-                                                <label>Name</label>
+                                                <label>{showadd ? 'Name' : 'Select Project'}</label>
                                                 <motion.input
                                                     type="text"
-                                                    className={`form-input ${showadd ? 'animationreturn' : 'max100'}`}
+                                                    className={`form-input ${showadd ? '' : 'max100'}`}
                                                     transition={{ duration: 2.8, type: "spring" }}
-                                                    style={{ width: showadd ? '100%' : '774px' }}
+                                                    style={{ width: showadd ? '100% ' : '180%' }}
                                                 />
                                             </motion.div>
                                         )}
