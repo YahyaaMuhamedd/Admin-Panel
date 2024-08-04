@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState ,useEffect } from 'react';
 import Image from "next/image";
 import Link from 'next/link';
 import arabteclogo from "../img/Group 6356172.svg";
@@ -11,6 +11,7 @@ import icon1 from "../img/Icon1.svg";
 import { motion, AnimatePresence, easeInOut, easeOut } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import useWindowWidth from '../hooks/useWindowWidth';
 
 
 const Page = () => {
@@ -71,10 +72,22 @@ const Page = () => {
         visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: easeInOut } },
         exit: { opacity: 0, y: 0, transition: { duration: 0.5, ease: easeInOut } }
     };
+
+    const windowWidth = useWindowWidth();
+
     const animationend = {
         iftrue: { opacity: 1, x: 25, y: 25, transition: { duration: 0.7, ease: easeInOut } },
         iffalse: { opacity: 1, x: 0, y: 0 },
-    }
+    };
+
+    useEffect(() => {
+        if (windowWidth <= 1088.5) {
+            setlastanim(true);
+        } else {
+            setlastanim(false);
+        }
+    }, [windowWidth]);
+
     return (
         <motion.div className='contain d-flex flex-row container-width gap-3 '>
             <motion.div
@@ -166,8 +179,8 @@ const Page = () => {
                                                         <motion.input
                                                             key="input"
                                                             type="text"
-                                                            initial={{ opacity: 1, width:  animatedinputedit ?"180%" : "100%" }}
-                                                            animate={{ opacity: 1, width:  "100%" }}
+                                                            initial={{ opacity: 1, width: animatedinputedit ? "180%" : "100%" }}
+                                                            animate={{ opacity: 1, width: "100%" }}
                                                             transition={{ duration: 0.3 }}
                                                             className={`form-input ${animatedinputedit ? '' : 'w-100'}`}
                                                         />
