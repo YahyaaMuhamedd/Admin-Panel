@@ -23,6 +23,7 @@ const Page = () => {
     const [showedit, setshowedit] = useState(false);
     const [showadd, setShowadd] = useState(false);
     const [lastanim, setlastanim] = useState(false);
+    const [animatedinputedit, setanimatedinputedit] = useState(false)
 
     const handleClick = () => {
         setInv(!inv);
@@ -58,9 +59,9 @@ const Page = () => {
     };
 
     const animateedit = {
-        inputdown: { opacity: 1, y: 155 },
-        downanimate: { opacity: 1, y: 92 },
-        down: { opacity: 1, y: 300 },
+        inputdown: { opacity: 1, y: 255 },
+        downanimate: { opacity: 1, y: 192 },
+        down: { opacity: 1, y: 400 },
         up: { opacity: 1, y: 0 },
         animationreturn: { opacity: 1, y: 0, transition: { duration: 2.8, type: "spring" } }
     };
@@ -71,8 +72,8 @@ const Page = () => {
         exit: { opacity: 0, y: 0, transition: { duration: 0.5, ease: easeInOut } }
     };
     const animationend = {
-        iftrue: { opacity: 1, x: 25 , y: 25 , transition: { duration: 0.7, ease: easeInOut }},
-        iffalse: { opacity: 1, x: 0 , y: 0},
+        iftrue: { opacity: 1, x: 25, y: 25, transition: { duration: 0.7, ease: easeInOut } },
+        iffalse: { opacity: 1, x: 0, y: 0 },
     }
     return (
         <motion.div className='contain d-flex flex-row container-width gap-3 '>
@@ -80,7 +81,7 @@ const Page = () => {
                 variants={animationend}
                 initial={lastanim ? "iffalse" : "iftrue"}
                 animate={lastanim ? "iffalse" : "iftrue"}
-                transition={{duration: 0.7, delay: 0.7, ease:easeInOut}}
+                transition={{ duration: 0.7, ease: easeInOut }}
                 className={`background height-50 animation-0  `}>
                 <div className="text d-flex justify-content-center content-center-s pt-5 mb-3">
                     <Image src={arabteclogo.src} alt="Arabtec Logo" className="ms-3" width={91.504} height={56.964} />
@@ -107,7 +108,7 @@ const Page = () => {
             </motion.div>
 
             <motion.div className="project-control d-flex flex-column flex-lg-row">
-                <AnimatePresence mode="wait">
+                <AnimatePresence >
                     {inv && (
                         <motion.div
                             key={`first-${animationKey}`}
@@ -115,13 +116,13 @@ const Page = () => {
                             animate="visible"
                             exit={show ? "exitToRight" : "exitToLeft"}
                             variants={itemVariants}
-                            transition={{ duration: 0.7, ease: easeInOut }}
+                            transition={{ duration: 0.9, ease: easeOut, }}
                             className="d-flex flex-column flex-lg-row gap-3 projectchild justify-content-center align-items-center ms-xxl-5 ms-lg-5"
                         >
-                            <button className={`d-flex justify-content-center align-items-center ${animate ? 'animation-1' : ''}`} onClick={() => { handleClick(); setshowedit(true); setShowadd(false); setlastanim(true) }}>
+                            <button className={`d-flex justify-content-center align-items-center ${animate ? 'animation-1' : ''}`} onClick={() => { handleClick(); setshowedit(true); setShowadd(false); setlastanim(true); setanimatedinputedit(true) }}>
                                 Edit Existing Blog <Image src={icon.src} alt='Edit icon' width={53} height={53} className='ms-3' />
                             </button>
-                            <button className={`d-flex justify-content-center align-items-center ${animate ? 'animation-2' : ''}`} onClick={() => { handleClick(); setShowadd(true); setshowedit(true); setlastanim(true) }}>
+                            <button className={`d-flex justify-content-center align-items-center ${animate ? 'animation-2' : ''}`} onClick={() => { handleClick(); setShowadd(true); setshowedit(true); setlastanim(true); setanimatedinputedit(false) }}>
                                 Add New Blog <Image src={icon1.src} alt='Add icon' width={53} height={53} className='ms-3' />
                             </button>
                         </motion.div>
@@ -134,13 +135,13 @@ const Page = () => {
                             animate="visible"
                             exit="exitToRight"
                             variants={itemVariants}
-                            transition={{ duration: 1.5, ease: easeOut , type: "spring"}}
+                            transition={{ duration: 2.5, ease: easeOut, type: "spring", }}
                             className={`login translateX-50 ${showadd ? '' : 'heightedit'}`}
                         >
                             <div className={`container-xxl`}>
                                 <motion.div className={`form-container`} >
                                     <div className="d-flex justify-content-between">
-                                        <button onClick={() =>{ handleClick();  setlastanim(false) }} className='btn p-0'>Back</button>
+                                        <button onClick={() => { handleClick(); setlastanim(false); setanimatedinputedit(true) }} className='btn p-0'>Back</button>
                                         <p>{showadd ? 'Add New Blog' : 'Edit Blog'}</p>
                                     </div>
 
@@ -160,12 +161,30 @@ const Page = () => {
                                                 className={`col`}
                                             >
                                                 <label>{showadd ? 'Name' : 'Select Blog'}</label>
-                                                <motion.input
-                                                    type="text"
-                                                    className={`form-input ${showadd ? '' : 'max100'}`}
-                                                    transition={{ duration: 2.8, type: "spring" }}
-                                                    style={{ width: showadd ? '100% ' : '180%' }}
-                                                />
+                                                <AnimatePresence >
+                                                    {showadd ? (
+                                                        <motion.input
+                                                            key="input"
+                                                            type="text"
+                                                            initial={{ opacity: 1, width:  animatedinputedit ?"180%" : "100%" }}
+                                                            animate={{ opacity: 1, width:  "100%" }}
+                                                            transition={{ duration: 0.3 }}
+                                                            className={`form-input ${animatedinputedit ? '' : 'w-100'}`}
+                                                        />
+                                                    ) : (
+
+                                                        <motion.select
+                                                            key="select"
+                                                            transition={{ duration: 0.3, type: "spring" }}
+                                                            className={`form-input ${showadd ? '' : 'max100'}`}
+                                                        >
+                                                            <option value="Select Project">Select Blog</option>
+                                                            <option value="Blog1">Blog1</option>
+                                                            <option value="Blog2">Blog2</option>
+                                                            <option value="Blog3">Blog3</option>
+                                                        </motion.select>
+                                                    )}
+                                                </AnimatePresence>
                                             </motion.div>
                                         )}
 
@@ -394,7 +413,7 @@ const Page = () => {
                                         className={`gallery-content justify-content-end`}
                                     >
                                         <button className={`gallery-button ${showadd ? '' : 'btn-abs'}`} onClick={() => {
-
+                                            setanimatedinputedit(true)
                                             setShowadd(true);
                                             setshowedit(true);
                                         }}>
