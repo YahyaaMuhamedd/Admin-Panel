@@ -82,9 +82,9 @@ const Page = () => {
 
     useEffect(() => {
         if (windowWidth <= 1088.5) {
-            setlastanim(true);
+            setlastanim(!lastanim);
         } else {
-            setlastanim(false);
+            setlastanim(!lastanim);
         }
     }, [windowWidth]);
 
