@@ -71,8 +71,8 @@ const Page = () => {
     };
 
     return (
-        <motion.div className='container-xxl d-flex flex-row container-width gap-3 animation-0'>
-            <div className="background progress-bar-animated height-50">
+        <motion.div className='container-xxl d-flex flex-row container-width gap-3 '>
+            <div className="background progress-bar-animated height-50 animation-0">
                 <div className="text d-flex justify-content-center content-center-s pt-5 mb-3">
                     <Image src={arabteclogo.src} alt="Arabtec Logo" className="ms-3" width={91.504} height={56.964} />
                     <Link href={"/"}  className='text-decoration-none'>
