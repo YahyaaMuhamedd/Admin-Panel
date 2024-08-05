@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState ,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from "next/image";
 import Link from 'next/link';
 import arabteclogo from "../img/Group 6356172.svg";
@@ -23,14 +23,29 @@ const Page = () => {
     const [animate, setAnimate] = useState(true);
     const [showedit, setshowedit] = useState(false);
     const [showadd, setShowadd] = useState(false);
-    const [lastanim, setlastanim] = useState(false);
     const [animatedinputedit, setanimatedinputedit] = useState(false)
+    const [lastanim, setlastanim] = useState(true);
+    const windowWidth = useWindowWidth();
 
     const handleClick = () => {
         setInv(!inv);
         setShow(!show);
         setAnimationKey(prevKey => prevKey + 1);
         setAnimate(false);
+        if (windowWidth > 1088) {
+            setlastanim(false);
+        }
+    };
+
+    const handleBackClick = () => {
+        setInv(!inv);
+        setShow(!show);
+        setAnimationKey(prevKey => prevKey + 1);
+
+        if (windowWidth > 1088) {
+            setlastanim(true);
+        }
+
     };
 
     const handleFileSelect = (event) => {
@@ -73,52 +88,54 @@ const Page = () => {
         exit: { opacity: 0, y: 0, transition: { duration: 0.5, ease: easeInOut } }
     };
 
-    const windowWidth = useWindowWidth();
-
     const animationend = {
         iftrue: { opacity: 1, x: 25, y: 25, transition: { duration: 0.7, ease: easeInOut } },
         iffalse: { opacity: 1, x: 0, y: 0 },
     };
 
+
     useEffect(() => {
-        if (windowWidth <= 1088.5) {
-            setlastanim(!lastanim);
+        if (windowWidth > 1088) {
+            setlastanim(true);
         } else {
-            setlastanim(!lastanim);
+            setlastanim(false);
         }
     }, [windowWidth]);
-
+   
     return (
         <motion.div className='contain d-flex flex-row container-width gap-3 '>
-            <motion.div
-                variants={animationend}
-                initial={lastanim ? "iffalse" : "iftrue"}
-                animate={lastanim ? "iffalse" : "iftrue"}
-                transition={{ duration: 0.7, ease: easeInOut }}
-                className={`background height-50 animation-0  `}>
-                <div className="text d-flex justify-content-center content-center-s pt-5 mb-3">
-                    <Image src={arabteclogo.src} alt="Arabtec Logo" className="ms-3" width={91.504} height={56.964} />
-                    <Link href={"/"} className='text-decoration-none'>
-                        <p className="text-white ms-2 mt-3">arabtec</p>
-                    </Link>
-                </div>
-                <div className='act mb-2 d-flex content-center-s'>
-                    <div className='menu d-flex margin55 mb-2 content-center-s align-items-center'>
-                        <Link href="/dashboard" className='text-white text-decoration-none w-auto p gap-2 d-flex justify-content-center'>
-                            <Image src={ProjectsLogo.src} alt="Projects Logo" width={24} height={28.8} />
-                            Projects
+                <motion.div
+                    variants={animationend}
+                    initial={lastanim ? "iftrue" : "iffalse"}
+                    animate={lastanim ? "iftrue" : "iffalse"}
+                    transition={{ duration: 0.7, ease: easeInOut }}
+                    className={`background height-50 animation-0  `}
+                >
+                    <div className="text d-flex justify-content-center content-center-s pt-5 mb-3">
+                        <Image src={arabteclogo.src} alt="Arabtec Logo" className="ms-3" width={91.504} height={56.964} />
+                        <Link href={"/"} className='text-decoration-none'>
+                            <p className="text-white ms-2 mt-3">arabtec</p>
                         </Link>
                     </div>
-                </div>
-                <div className='active d-flex content-center-s'>
-                    <div className='menu d-flex margin55 content-center-s align-items-center'>
-                        <Link href="/blog" className='text-white text-decoration-none w-auto p gap-2 d-flex justify-content-center'>
-                            <Image src={Rectangle.src} alt="Blog Logo" width={24} height={28.8} />
-                            Blog
-                        </Link>
+                    <div className='act mb-2 d-flex content-center-s'>
+                        <div className='menu d-flex margin55 mb-2 content-center-s align-items-center'>
+                            <Link href="/dashboard" className='text-white text-decoration-none w-auto p gap-2 d-flex justify-content-center'>
+                                <Image src={ProjectsLogo.src} alt="Projects Logo" width={24} height={28.8} />
+                                Projects
+                            </Link>
+                        </div>
                     </div>
-                </div>
-            </motion.div>
+                    <div className='active d-flex content-center-s'>
+                        <div className='menu d-flex margin55 content-center-s align-items-center'>
+                            <Link href="/blog" className='text-white text-decoration-none w-auto p gap-2 d-flex justify-content-center'>
+                                <Image src={Rectangle.src} alt="Blog Logo" width={24} height={28.8} />
+                                Blog
+                            </Link>
+                        </div>
+                    </div>
+                </motion.div>
+            
+
 
             <motion.div className="project-control d-flex flex-column flex-lg-row">
                 <AnimatePresence >
@@ -132,10 +149,10 @@ const Page = () => {
                             transition={{ duration: 0.9, ease: easeOut, }}
                             className="d-flex flex-column flex-lg-row gap-3 projectchild justify-content-center align-items-center ms-xxl-5 ms-lg-5"
                         >
-                            <button className={`d-flex justify-content-center align-items-center ${animate ? 'animation-1' : ''}`} onClick={() => { handleClick(); setshowedit(true); setShowadd(false); setlastanim(true); setanimatedinputedit(true) }}>
+                            <button className={`d-flex justify-content-center align-items-center ${animate ? 'animation-1' : ''}`} onClick={() => { handleClick(); setshowedit(true); setShowadd(false); setanimatedinputedit(true); }}>
                                 Edit Existing Blog <Image src={icon.src} alt='Edit icon' width={53} height={53} className='ms-3' />
                             </button>
-                            <button className={`d-flex justify-content-center align-items-center ${animate ? 'animation-2' : ''}`} onClick={() => { handleClick(); setShowadd(true); setshowedit(true); setlastanim(true); setanimatedinputedit(false) }}>
+                            <button className={`d-flex justify-content-center align-items-center ${animate ? 'animation-2' : ''}`} onClick={() => { handleClick(); setShowadd(true); setshowedit(true); setanimatedinputedit(false); }}>
                                 Add New Blog <Image src={icon1.src} alt='Add icon' width={53} height={53} className='ms-3' />
                             </button>
                         </motion.div>
@@ -154,7 +171,7 @@ const Page = () => {
                             <div className={`container-xxl`}>
                                 <motion.div className={`form-container`} >
                                     <div className="d-flex justify-content-between">
-                                        <button onClick={() => { handleClick(); setlastanim(false); setanimatedinputedit(true) }} className='btn p-0'>Back</button>
+                                        <button onClick={() => { handleBackClick(); setanimatedinputedit(true) }} className='btn p-0'>Back</button>
                                         <p>{showadd ? 'Add New Blog' : 'Edit Blog'}</p>
                                     </div>
 
