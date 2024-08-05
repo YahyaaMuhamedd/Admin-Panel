@@ -104,6 +104,7 @@ const Page = () => {
    
     return (
         <motion.div className='contain d-flex flex-row container-width gap-3 '>
+                {windowWidth > 1088 ? (
                 <motion.div
                     variants={animationend}
                     initial={lastanim ? "iftrue" : "iffalse"}
@@ -134,6 +135,34 @@ const Page = () => {
                         </div>
                     </div>
                 </motion.div>
+            ) : (
+                <div className={`background height-50 animation-0  `}>
+                    <div className="text d-flex justify-content-center content-center-s pt-5 mb-3">
+                        <Image src={arabteclogo.src} alt="Arabtec Logo" className="ms-3" width={91.504} height={56.964} />
+                        <Link href={"/"} className='text-decoration-none'>
+                            <p className="text-white ms-2 mt-3">arabtec</p>
+                        </Link>
+                    </div>
+                    <div className='act mb-2 d-flex content-center-s'>
+                        <div className='menu d-flex margin55 mb-2 content-center-s align-items-center'>
+                            <Link href="/dashboard" className='text-white text-decoration-none w-auto p gap-2 d-flex justify-content-center'>
+                                <Image src={ProjectsLogo.src} alt="Projects Logo" width={24} height={28.8} />
+                                Projects
+                            </Link>
+                        </div>
+                    </div>
+                    <div className='active d-flex content-center-s'>
+                        <div className='menu d-flex margin55 content-center-s align-items-center'>
+                            <Link href="/blog" className='text-white text-decoration-none w-auto p gap-2 d-flex justify-content-center'>
+                                <Image src={Rectangle.src} alt="Blog Logo" width={24} height={28.8} />
+                                Blog
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+
             
 
 
